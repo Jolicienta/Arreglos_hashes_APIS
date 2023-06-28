@@ -14,11 +14,11 @@ def request(url)
 end
 
 # Se crea una variable url que pueda recibir cualquier url
-# No cambie el valor de ?sol aqui porque al pedir las urls de fotos mas abajo limito que sean 10.
-# Me canviene que me devuelva todo para el ejercicio 3 del conteo de fotos por camara.
+# No cambié el valor de "?sol" aquí porque al pedir las urls de fotos mas abajo limito que sean 10.
+# Me canviene que me devuelva todo para el ejercicio 3 del conteo de fotos por cámara.
 url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=eOyoxUVwz62M7qNvOA4BpgbL1jp2xLmcDudcGibr'
 
-# Aqui se retorna el hash con los resultados al entregarle la url al metodo request
+# Aqui se retorna el hash con los resultados al entregarle la url al método request
 puts request(url)
 
 
@@ -26,16 +26,16 @@ puts request(url)
 #2. Crear un método llamado buid_web_page que reciba el hash de respuesta con todos
 #los datos y construya una página web.
 
-# Utilizo la libreria sinatra de ruby para crear de manera mas sencilla un metodo de ruby que me
+# Utilizo la librería sinatra de ruby para crear de manera mas sencilla un método de ruby que me
 # construya una web
 require 'sinatra'
 
-# Creo la variable que recibira el hash y que se le dara de argumento al metodo build_web_page y photos_count
+# Creo la variable que recibirá el hash, y que se le dará de argumento al método build_web_page y photos_count
 result_request = request(url)
 
-# Metodo que creara la pagina web
+# Método que creará la página web
 def build_web_page(hash)
-    # Abrimos la variable `html` para crear la web a traves de ruby
+    # Abrimos la variable `html` para crear la web a través de ruby
     html = "<html><head><body><ul>"
     # Para solo obtener 10 urls de fotos defino esta variable
     selected_photos = hash["photos"][0...10]
@@ -69,7 +69,10 @@ def photos_count(hash)
         array_cameras.push(camera_name)
     end
 
+    # Esta variable hace que del hash me devuelva el nombre de la cámara y el conteo de las fotos
+    # que tomó, y lo pasa a hash
     counts = array_cameras.group_by(&:itself).map {|k,v| [k, v.count]}.to_h
 end
 
-puts photos_count(result_request)
+#Nuevo hash con el nombre de la cámara y la cantidad de fotos que tomó 
+ puts photos_count(result_request)
